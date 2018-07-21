@@ -251,10 +251,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>etc/</exclude>
                     <exclude>lib/</exclude>
-                    <exclude>docker/</exclude>
+                    <exclude>develop/*</exclude>
+                    <exclude>production/*</exclude>
                 </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${profiles.active}</directory>
             </resource>
         </resources>
 
@@ -314,61 +317,6 @@
                 <configuration>
                     <skipTests>false</skipTests>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>${maven-license-plugin.version}</version>
-                <configuration>
-                    <header>src/main/resources/etc/header.txt</header>
-                    <quiet>false</quiet>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>true</aggregate>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                        <include>**/src/*/java/**/*.java</include>
-                        <include>**/src/*/webapp/js/*.js</include>
-                        <include>**/src/*/webapp/js/marked/*.js</include>
-                        <include>**/src/*/webapp/css/*.css</include>
-                        <include>**/src/*/webapp/**/*.ftl</include>
-                        <include>**/src/*/webapp/skins/*/js/*.js</include>
-                        <include>**/src/*/webapp/skins/*/css/*.css</include>
-                        <include>**/src/*/webapp/skins/**/*.properties</include>
-                        <include>**/src/*/webapp/plugins/*/js/*.js</include>
-                        <include>**/src/*/webapp/plugins/*/css/*.css</include>
-                        <include>**/src/*/webapp/plugins/*/*.properties</include>
-                        <include>**/src/*/webapp/js/admin/*.js</include>
-                        <include>**/src/*/resources/*.properties</include>
-                        <include>**/src/*/webapp/WEB-INF/*.xml</include>
-                        <include>**/src/test/resources/**/*</include>
-                        <include>**/src/*/resources/docker/*</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/src/main/java/**/package-info.java</exclude>
-                        <exclude>**/src/*/webapp/js/lib/*.js</exclude>
-                        <exclude>**/src/main/java/com/**/*.java</exclude>
-                    </excludes>
-
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                    <mapping>
-                        <java>SLASHSTAR_STYLE</java>
-                    </mapping>
-                    <useDefaultMapping>true</useDefaultMapping>
-                    <properties>
-                        <year>2010-2018</year>
-                        <devTeam>b3log.org &amp; hacpai.com</devTeam>
-                    </properties>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -462,11 +410,10 @@
 
     <profiles>
         <profile>
-            <id>ci</id>
-        </profile>
-
-        <profile>
-            <id>dev</id>
+            <id>develop</id>
+            <properties>
+                <profiles.active>develop</profiles.active>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -483,6 +430,14 @@
                     <url>http://maven.aliyun.com/nexus/content/groups/public</url>
                 </pluginRepository>
             </pluginRepositories>
+        </profile>
+
+        <profile>
+            <!-- 发布环境 -->
+            <id>production</id>
+            <properties>
+                <profiles.active>production</profiles.active>
+            </properties>
         </profile>
     </profiles>
 

@@ -15,5 +15,5 @@
 
 src/main/webapp/markdowns/*
 !src/main/webapp/markdowns/README.md
-
+src/main/resources/production
 .DS_Store
