@@ -29,15 +29,15 @@
     <body>
         <#include "header.ftl">
         <main class="main wrapper">
-            <#--<div class="content posts-collapse">
-                <div class="collection-title">
+            <div class="content posts-collapse">
+                <#--div class="collection-title">
                     <h2>
                         ${category.categoryTitle}
                         <small>${categoryLabel}</small>
                     </h2>
-                </div>
+                </div-->
                 <#include "article-list.ftl">
-            </div>-->
+            </div>
             <#include "side.ftl">
         </main>
         <#include "footer.ftl">
